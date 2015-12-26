@@ -7,29 +7,29 @@
 
 <title type="text">b1ack0wl</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="http://127.0.0.1:4000/feed.xml" />
-<link rel="alternate" type="text/html" href="http://127.0.0.1:4000/" />
-<updated>2015-12-26T09:49:26+05:30</updated>
-<id>http://127.0.0.1:4000/</id>
+<link rel="self" type="application/atom+xml" href="http://b1ack0wl.com/feed.xml" />
+<link rel="alternate" type="text/html" href="http://b1ack0wl.com/" />
+<updated>2015-12-26T09:50:27+05:30</updated>
+<id>http://b1ack0wl.com/</id>
 <author>
   <name>b1ack0wl</name>
-  <uri>http://127.0.0.1:4000/</uri>
+  <uri>http://b1ack0wl.com/</uri>
   <email>b1ack0wl.research@gmail.com</email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[Damn Vulnerable Router Firmware]]></title>
-  <link rel="alternate" type="text/html" href="http://127.0.0.1:4000/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/"/>
-  <id>http://127.0.0.1:4000/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware</id>
+  <link rel="alternate" type="text/html" href="http://b1ack0wl.com/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/"/>
+  <id>http://b1ack0wl.com/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware</id>
   <published>2015-12-25T21:32:00+05:30</published>
   <updated>2015-12-25T21:32:00+05:30</updated>
   <author>
     <name>b1ack0wl</name>
-    <uri>http://127.0.0.1:4000</uri>
+    <uri>http://b1ack0wl.com</uri>
     <email>b1ack0wl.research@gmail.com</email>
   </author>
-  <category scheme="http://127.0.0.1:4000/tags/#Embedded" term="Embedded" />
+  <category scheme="http://b1ack0wl.com/tags/#Embedded" term="Embedded" />
   <content type="html">
   
     &lt;p&gt;As microprocessors become cheaper and cheaper it appears that everything that doesn’t need a processor is getting a processor. Unfortunately a lot of these devices are programmed with poor programming practices which is then sold off to the consumer. To help prevent this trend I decided to start the &lt;strong&gt;“Damn Vulnerable Router Firmware”&lt;/strong&gt; project. This project is based of &lt;a href=&quot;https://github.com/mirror/dd-wrt&quot;&gt;DD-WRT&lt;/a&gt; technology but has been re-written in a way to make it vulnerable. This project has been inspired by the &lt;a href=&quot;http://www.dvwa.co.uk/&quot;&gt;Damn Vulnerable Web App&lt;/a&gt; project since I believe the hands on experience is a greater teaching tool than just reading up on it.&lt;/p&gt;
@@ -37,7 +37,7 @@
 &lt;p&gt;To be released before 2016&lt;/p&gt;
 
   
-  &lt;p&gt;&lt;a href=&quot;http://127.0.0.1:4000/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/&quot;&gt;Damn Vulnerable Router Firmware&lt;/a&gt; was originally published by b1ack0wl at &lt;a href=&quot;http://127.0.0.1:4000&quot;&gt;b1ack0wl&lt;/a&gt; on December 25, 2015.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://b1ack0wl.com/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/&quot;&gt;Damn Vulnerable Router Firmware&lt;/a&gt; was originally published by b1ack0wl at &lt;a href=&quot;http://b1ack0wl.com&quot;&gt;b1ack0wl&lt;/a&gt; on December 25, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>

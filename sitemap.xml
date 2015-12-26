@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>http://127.0.0.1:4000</loc>
+        <loc>http://b1ack0wl.com</loc>
     </url>
     
     
     <url>
-        <loc>http://127.0.0.1:4000/404/</loc>
+        <loc>http://b1ack0wl.com/404/</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/about/index.html</loc>
+        <loc>http://b1ack0wl.com/about/index.html</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/categories/index.html</loc>
+        <loc>http://b1ack0wl.com/categories/index.html</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/feed.xml</loc>
+        <loc>http://b1ack0wl.com/feed.xml</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/</loc>
+        <loc>http://b1ack0wl.com/</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/links.jsonp</loc>
+        <loc>http://b1ack0wl.com/links.jsonp</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/css/main.css</loc>
+        <loc>http://b1ack0wl.com/css/main.css</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/search.json</loc>
+        <loc>http://b1ack0wl.com/search.json</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/sitemap.xml</loc>
+        <loc>http://b1ack0wl.com/sitemap.xml</loc>
     </url>
     
     <url>
-        <loc>http://127.0.0.1:4000/tags/index.html</loc>
+        <loc>http://b1ack0wl.com/tags/index.html</loc>
     </url>
     
 
     
     <url>
-        <loc>http://127.0.0.1:4000/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/</loc>
+        <loc>http://b1ack0wl.com/embedded/2015/12/25/Damn-Vulnerable-Router-Firmware/</loc>
     </url>
     
 </urlset>
