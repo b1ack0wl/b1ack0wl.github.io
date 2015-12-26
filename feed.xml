@@ -9,7 +9,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://b1ack0wl.com/feed.xml" />
 <link rel="alternate" type="text/html" href="http://b1ack0wl.com/" />
-<updated>2015-12-26T22:43:34+05:30</updated>
+<updated>2015-12-26T22:44:50+05:30</updated>
 <id>http://b1ack0wl.com/</id>
 <author>
   <name>b1ack0wl</name>
@@ -34,7 +34,7 @@
   
     &lt;p&gt;As microprocessors become cheaper and cheaper it appears that everything that doesn’t need a processor is getting a processor. Unfortunately a lot of these devices are programmed with poor programming practices which is then sold off to the consumer. To help prevent this trend I decided to start the &lt;strong&gt;“Damn Vulnerable Router Firmware”&lt;/strong&gt; project. This project is based of &lt;a href=&quot;https://github.com/mirror/dd-wrt&quot;&gt;DD-WRT&lt;/a&gt; technology but has been re-written in a way to make it vulnerable. This project has been inspired by the &lt;a href=&quot;http://www.dvwa.co.uk/&quot;&gt;Damn Vulnerable Web App&lt;/a&gt; project since I believe the hands on experience is a greater teaching tool. Plus in no time you can be like this! &lt;br /&gt;&lt;center&gt;&lt;/center&gt;&lt;/p&gt;
 
-&lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/AcmaNJfRQf0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt; &lt;/iframe&gt;
+&lt;iframe width=&quot;280&quot; height=&quot;157&quot; src=&quot;https://www.youtube.com/embed/AcmaNJfRQf0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt; &lt;/iframe&gt;
 &lt;p&gt;&amp;lt;/center&amp;gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;+To be released before 2016&lt;/p&gt;
