@@ -9,13 +9,287 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://b1ack0wl.com/feed.xml" />
 <link rel="alternate" type="text/html" href="http://b1ack0wl.com/" />
-<updated>2016-01-21T08:02:13+05:30</updated>
+<updated>2016-01-22T09:05:13+05:30</updated>
 <id>http://b1ack0wl.com/</id>
 <author>
   <name>b1ack0wl</name>
   <uri>http://b1ack0wl.com/</uri>
   <email>b1ack0wl.research@gmail.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Getting Started with DVRF]]></title>
+  <link rel="alternate" type="text/html" href="http://b1ack0wl.com/projects/2016/01/20/Getting-Started-With-DVRF/"/>
+  <id>http://b1ack0wl.com/projects/2016/01/20/Getting-Started-With-DVRF</id>
+  <published>2016-01-20T22:32:00+05:30</published>
+  <updated>2016-01-20T22:32:00+05:30</updated>
+  <author>
+    <name>b1ack0wl</name>
+    <uri>http://b1ack0wl.com</uri>
+    <email>b1ack0wl.research@gmail.com</email>
+  </author>
+  <category scheme="http://b1ack0wl.com/tags/#Projects" term="Projects" />
+  <content type="html">
+  
+    &lt;p&gt;So now that v0.1 has been released for &lt;a href=&quot;https://github.com/praetorian-inc/DVRF&quot;&gt;DVRF&lt;/a&gt; I wanted to make this post to help people get started with DVRF even if they don’t have a E1550 in hand. For this post we’ll be going over how to use DVRF with &lt;a href=&quot;http://wiki.qemu.org/Main_Page&quot;&gt;QEMU.&lt;/a&gt; To get started you’ll need to do the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install qemu-user-static
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following NEW packages will be installed:
+  qemu-user-static
+&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; upgraded, &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; newly installed, &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; to remove and &lt;span class=&quot;m&quot;&gt;25&lt;/span&gt; not upgraded.
+Need to get &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; B/7,795 kB of archives.
+After this operation, 79.4 MB of additional disk space will be used.
+Selecting previously unselected package qemu-user-static.
+&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Reading database ... &lt;span class=&quot;m&quot;&gt;173955&lt;/span&gt; files and directories currently installed.&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+Preparing to unpack .../qemu-user-static_2.0.0+dfsg-2ubuntu1.21_amd64.deb ...
+Unpacking qemu-user-static &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2.0.0+dfsg-2ubuntu1.21&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ...
+Processing triggers &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; man-db &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2.6.7.1-1ubuntu1&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ...
+Setting up qemu-user-static &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;2.0.0+dfsg-2ubuntu1.21&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; ...
+b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Once you have &lt;strong&gt;qemu-user-static&lt;/strong&gt; installed you’ll next want to install &lt;a href=&quot;https://github.com/devttys0/binwalk&quot;&gt;Binwalk.&lt;/a&gt; Make sure to follow the instructions so that you have all of the dependancies needed to extract the squash-fs within the DVRF binary. Once &lt;strong&gt;Binwalk&lt;/strong&gt; is installed you will also want to download the uClibc &lt;a href=&quot;https://buildroot.org/&quot;&gt;Buildroot&lt;/a&gt; tar file. This is crucial since this is going to be your bread and butter for cross compiling and also debugging especially if you don’t have IDA. To get started do the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;wget https://buildroot.org/downloads/buildroot-2015.11.1.tar.gz
+--2016-01-20 22:53:34--  https://buildroot.org/downloads/buildroot-2015.11.1.tar.gz
+Resolving buildroot.org &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;buildroot.org&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;... 140.211.167.224
+Connecting to buildroot.org &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;buildroot.org&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;140.211.167.224&lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;:443... connected.
+HTTP request sent, awaiting response... &lt;span class=&quot;m&quot;&gt;200&lt;/span&gt; OK
+Length: &lt;span class=&quot;m&quot;&gt;5460407&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;5.2M&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;application/x-gzip&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+Saving to: ‘buildroot-2015.11.1.tar.gz’
+
+100%&lt;span class=&quot;o&quot;&gt;[======================================&lt;/span&gt;&amp;gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; 5,460,407   87.5KB/s   in 57s    
+
+2016-01-20 22:54:33 &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;92.7 KB/s&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - ‘buildroot-2015.11.1.tar.gz’ saved &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;5460407/5460407&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;tar xzf buildroot-2015.11.1.tar.gz
+b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;buildroot-2015.11.1/
+
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+arch   build      Config.in.legacy  docs   Makefile         README   toolchain
+board  CHANGES    configs           fs     Makefile.legacy  support
+boot   Config.in  COPYING           linux  package          system&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you’re going to type &lt;strong&gt;make menuconfig&lt;/strong&gt; and when it’s done you’re going to see the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-buildroot-make-menuconfig.jpg&quot; alt=&quot;make menuconfig&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under &lt;strong&gt;Target&lt;/strong&gt; you’re going to select MIPS little endian, ELF, and mips32. Soft float can be enabled since for now it doesn’t matter for the exercises I have under /pwnables.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-buildroot-make-menuconfig-target.jpg&quot; alt=&quot;CPU Architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Under &lt;strong&gt;Toolkit&lt;/strong&gt; you’ll want to set the C Library to uClibc since the binary is compiled with this library and most devices you’ll come across will be using this C library.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-buildroot-make-menuconfig-toolkit-uclibc.jpg&quot; alt=&quot;uClibc Library&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Also under &lt;strong&gt;Toolkit&lt;/strong&gt; you’ll want to enable “Build cross gdb for the host.” This will create a gdb binary that will run on your host (e.g. x86_64) but will support your target Architecture (e.g. MIPS). This is helpful for debugging applications when using the -g argument in Qemu.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-buildroot-make-menuconfig-toolkit.jpg&quot; alt=&quot;GDB Support&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Make sure to save your configuration changes so that your toolkit will compile for the right Architecture we’ve chosen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-buildroot-make-menuconfig-toolkit-save.jpg&quot; alt=&quot;Save&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now feel free to either explore what other options the toolkit can provide or exit the menu and type “make” but be warned that this process does take a while so it might be a good time to go grab a cup of coffee and also make sure you have an internet connection since this process will download tar files that are needed for compiling.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make menuconfig
+
+
+*** End of the configuration.
+*** Execute &lt;span class=&quot;s1&quot;&gt;&amp;#39;make&amp;#39;&lt;/span&gt; to start the build or try &lt;span class=&quot;s1&quot;&gt;&amp;#39;make help&amp;#39;&lt;/span&gt;.
+
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;make
+/usr/bin/make -j1  &lt;span class=&quot;nv&quot;&gt;HOSTCC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/usr/bin/gcc&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;HOSTCXX&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;/usr/bin/g++&amp;quot;&lt;/span&gt; silentoldconfig
+make&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;1&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;: Entering directory /home/b1ack0wl/DVRF/buildroot-2015.11.1&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+mkdir -p /home/b1ack0wl/DVRF/buildroot-2015.11.1/output/build/buildroot-config/lxdialog
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...Truncated...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the toolkit has finished compiling you’ll see a new folder called &lt;strong&gt;output&lt;/strong&gt; this is where the toolkit compiled but for this we’ll only care about what’s been compiled into the host folder within output.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+arch   build      Config.in.legacy  dl    linux            output   support
+board  CHANGES    configs           docs  Makefile         package  system
+boot   Config.in  COPYING           fs    Makefile.legacy  README   toolchain
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;output/
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+build  host  images  staging  target
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;host/usr/
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output/host/usr &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+bin  include  lib  libexec  mipsel-buildroot-linux-uclibc  share  x86_64-unknown-linux-gnu
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output/host/usr &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;bin/
+b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output/host/usr/bin &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls *-build*
+mipsel-buildroot-linux-uclibc-addr2line          mipsel-buildroot-linux-uclibc-gcov
+mipsel-buildroot-linux-uclibc-ar                 mipsel-buildroot-linux-uclibc-gdb
+mipsel-buildroot-linux-uclibc-as                 mipsel-buildroot-linux-uclibc-gprof
+mipsel-buildroot-linux-uclibc-cc                 mipsel-buildroot-linux-uclibc-ld
+mipsel-buildroot-linux-uclibc-cc.br_real         mipsel-buildroot-linux-uclibc-ld.bfd
+mipsel-buildroot-linux-uclibc-c++filt            mipsel-buildroot-linux-uclibc-ldconfig
+mipsel-buildroot-linux-uclibc-cpp                mipsel-buildroot-linux-uclibc-ldd
+mipsel-buildroot-linux-uclibc-cpp.br_real        mipsel-buildroot-linux-uclibc-nm
+mipsel-buildroot-linux-uclibc-elfedit            mipsel-buildroot-linux-uclibc-objcopy
+mipsel-buildroot-linux-uclibc-gcc                mipsel-buildroot-linux-uclibc-objdump
+mipsel-buildroot-linux-uclibc-gcc-4.9.3          mipsel-buildroot-linux-uclibc-ranlib
+mipsel-buildroot-linux-uclibc-gcc-4.9.3.br_real  mipsel-buildroot-linux-uclibc-readelf
+mipsel-buildroot-linux-uclibc-gcc-ar             mipsel-buildroot-linux-uclibc-size
+mipsel-buildroot-linux-uclibc-gcc.br_real        mipsel-buildroot-linux-uclibc-strings
+mipsel-buildroot-linux-uclibc-gcc-nm             mipsel-buildroot-linux-uclibc-strip
+mipsel-buildroot-linux-uclibc-gcc-ranlib&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see that we have cross compilers and an instance of gdb. We will use this for crafting our exploits. Now that we have &lt;strong&gt;binwalk&lt;/strong&gt;, &lt;strong&gt;buildroot&lt;/strong&gt;, and &lt;strong&gt;qemu-user-static&lt;/strong&gt; installed we can get started on the first pwnable within the Intro folder. First we need to extract the contents within the binary file. We will use &lt;strong&gt;binwalk&lt;/strong&gt; to help us extract the binary with options -e for Extract and -M for Matryoshka which will extract recursively for up to 8 layers deep.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;binwalk -eM ./DVRF_v01.bin
+
+Scan Time:     2016-01-21 19:44:52
+Target File:   /home/b1ack0wl/DVRF/DVRF_v01.bin
+MD5 Checksum:  34dced9038b2d1e205b6c0f68991ccfe
+Signatures:    343
+
+DECIMAL       HEXADECIMAL     DESCRIPTION
+--------------------------------------------------------------------------------
+&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;             0x0             BIN-Header, board ID: 1550, hardware version: 4702, firmware version: 1.0.0, build date: 2012-02-08
+&lt;span class=&quot;m&quot;&gt;32&lt;/span&gt;            0x20            TRX firmware header, little endian, image size: &lt;span class=&quot;m&quot;&gt;7753728&lt;/span&gt; bytes, CRC32: 0x97096BA6, flags: 0x0, version: 1, header size: &lt;span class=&quot;m&quot;&gt;28&lt;/span&gt; bytes, loader offset: 0x1C, linux kernel offset: 0x192704, rootfs offset: 0x0
+&lt;span class=&quot;m&quot;&gt;60&lt;/span&gt;            0x3C            gzip compressed data, maximum compression, has original file name: &lt;span class=&quot;s2&quot;&gt;&amp;quot;piggy&amp;quot;&lt;/span&gt;, from Unix, last modified: 2015-12-31 10:44:22
+&lt;span class=&quot;m&quot;&gt;1648420&lt;/span&gt;       0x192724        Squashfs filesystem, little endian, non-standard signature, version 3.0, size: &lt;span class=&quot;m&quot;&gt;6099526&lt;/span&gt; bytes, &lt;span class=&quot;m&quot;&gt;447&lt;/span&gt; inodes, blocksize: &lt;span class=&quot;m&quot;&gt;65536&lt;/span&gt; bytes, created: 2016-01-19 01:47:20
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...Truncated...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You will now have a folder that should start with &lt;strong&gt;_DVRF&lt;/strong&gt; which contains all of the necessary files for these exercises. So go ahead and change directory to &lt;strong&gt;_DVRF_v01.bin.extracted/squashfs-root/&lt;/strong&gt; and perform the following.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;cp &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;which qemu-mipsel-static&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; ./
+b1ack0wl@b1ack0wl-VM ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;ls
+bin  etc  media  proc     qemu-mipsel-static  sys  usr  www
+dev  lib  mnt    pwnable  sbin                tmp  var
+b1ack0wl@b1ack0wl-VM ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root &lt;span class=&quot;err&quot;&gt;$&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;We need to have the statically built Qemu instance on our squash-fs root directory since we are going to chroot the environment when emulating the binaries. So we’re pretty much ready to get started! Let’s go ahead and test out our environment by performing the following command: &lt;strong&gt;sudo chroot &amp;lt;current directory&amp;gt; &amp;lt;qemu-mipsel-static&amp;gt; &amp;lt;path to binary to emulate&amp;gt; argv[1]&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo chroot . ./qemu-mipsel-static ./pwnable/Intro/stack_bof_01 test123
+Welcome to the first BoF exercise!
+
+You entered test123
+Try Again&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Awesome!! We can execute the binary without any issues! Now for the last step we need to debug the application and we will use qemu again but we will feed it the &lt;strong&gt;-g&lt;/strong&gt; argument which will attach a gdbserver instance to it but won’t execute the binary until an attached gdb instance initiates the continue instruction.&lt;/p&gt;
+
+&lt;p&gt;First get two terminals open and in one terminal type in the following command: &lt;strong&gt;sudo chroot . ./qemu-mipsel-static -g 1234 ./pwnable/Intro/stack_bof_01 test123&lt;/strong&gt; Remember -g 1234 means that gdbserver is going to start listening on port 1234. Now in the other terminal window you’ll want to use the crossed compiled gdb that’s located within the buildroot output folder.&lt;/p&gt;
+
+&lt;p&gt;You should now be at this step:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-gdbserver.jpg&quot; alt=&quot;gdbserver&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Just for fun you can even disassemble the file using the objdump we compiled with option &lt;strong&gt;-D&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/buildroot-2015.11.1/output/host/usr/bin &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;./mipsel-buildroot-linux-uclibc-objdump -D ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root/pwnable/Intro/stack_bof_01 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; more
+
+/home/b1ack0wl/DVRF/_DVRF_v01.bin.extracted/squashfs-root/pwnable/Intro/stack_bof_01:     file f
+ormat elf32-tradlittlemips
+
+
+Disassembly of section .interp:
+
+004000f4 &amp;lt;.interp&amp;gt;:
+  4000f4:	62696c2f 	0x62696c2f
+  4000f8:	2d646c2f 	sltiu	a0,t3,27695
+  4000fc:	696c4375 	0x696c4375
+  400100:	732e6362 	0x732e6362
+  400104:	00302e6f 	0x302e6f
+
+Disassembly of section .reginfo:
+
+&lt;span class=&quot;m&quot;&gt;00400108&lt;/span&gt; &amp;lt;.reginfo&amp;gt;:
+  400108:	b20001f6 	0xb20001f6
+	...
+  40011c:	00448ce0 	0x448ce0
+
+Disassembly of section .dynamic:
+
+&lt;span class=&quot;m&quot;&gt;00400120&lt;/span&gt; &amp;lt;_DYNAMIC&amp;gt;:
+  400120:	&lt;span class=&quot;m&quot;&gt;00000001&lt;/span&gt; 	movf	zero,zero,&lt;span class=&quot;nv&quot;&gt;$fcc0&lt;/span&gt;
+  400124:	&lt;span class=&quot;m&quot;&gt;00000083&lt;/span&gt; 	sra	zero,zero,0x2
+  400128:	&lt;span class=&quot;m&quot;&gt;00000001&lt;/span&gt; 	movf	zero,zero,&lt;span class=&quot;nv&quot;&gt;$fcc0&lt;/span&gt;
+  40012c:	000000ac 	0xac
+  400130:	0000000c 	syscall
+  400134:	0040059c 	0x40059c
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...Truncated...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+004007e0 &amp;lt;main&amp;gt;:
+  4007e0:	3c1c0005 	lui	gp,0x5
+  4007e4:	279c8500 	addiu	gp,gp,-31488
+  4007e8:	0399e021 	addu	gp,gp,t9
+  4007ec:	27bdff18 	addiu	sp,sp,-232
+  4007f0:	afbf00e4 	sw	ra,228&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  4007f4:	afbe00e0 	sw	s8,224&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  4007f8:	03a0f021 	move	s8,sp
+  4007fc:	afbc0010 	sw	gp,16&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400800:	afc400e8 	sw	a0,232&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400804:	afc500ec 	sw	a1,236&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400808:	8f82801c 	lw	v0,-32740&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  40080c:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400810:	94420b98 	lhu	v0,2968&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;v0&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400814:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400818:	a7c20018 	sh	v0,24&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  40081c:	27c2001a 	addiu	v0,s8,26
+  400820:	240300c6 	li	v1,198
+  400824:	&lt;span class=&quot;m&quot;&gt;00402021&lt;/span&gt; 	move	a0,v0
+  400828:	&lt;span class=&quot;m&quot;&gt;00002821&lt;/span&gt; 	move	a1,zero
+  40082c:	&lt;span class=&quot;m&quot;&gt;00603021&lt;/span&gt; 	move	a2,v1
+  400830:	8f998040 	lw	t9,-32704&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400834:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400838:	0320f809 	jalr	t9
+  40083c:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400840:	8fdc0010 	lw	gp,16&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400844:	8fc200e8 	lw	v0,232&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...Truncated...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+
+  &lt;span class=&quot;m&quot;&gt;00400950&lt;/span&gt; &amp;lt;dat_shell&amp;gt;:
+  400950:	3c1c0005 	lui	gp,0x5
+  400954:	279c8390 	addiu	gp,gp,-31856
+  400958:	0399e021 	addu	gp,gp,t9
+  40095c:	27bdffe0 	addiu	sp,sp,-32
+  400960:	afbf001c 	sw	ra,28&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400964:	afbe0018 	sw	s8,24&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400968:	03a0f021 	move	s8,sp
+  40096c:	afbc0010 	sw	gp,16&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;sp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400970:	8f82801c 	lw	v0,-32740&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400974:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400978:	24440c60 	addiu	a0,v0,3168
+  40097c:	8f998050 	lw	t9,-32688&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400980:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400984:	0320f809 	jalr	t9
+  400988:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  40098c:	8fdc0010 	lw	gp,16&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;s8&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400990:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  400994:	8f82801c 	lw	v0,-32740&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;gp&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  400998:	&lt;span class=&quot;m&quot;&gt;00000000&lt;/span&gt; 	nop
+  40099c:	24440c94 	addiu	a0,v0,3220
+&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;...Truncated...&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;So all we need to do to solve this is change the return pointer to function &lt;strong&gt;&amp;lt;dat_shell&amp;gt;&lt;/strong&gt; which is located at &lt;strong&gt;0x00400950&lt;/strong&gt; remember this is little endian and we cannot use NULL bytes but once you get the picture you should just about have the following:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-sh&quot; data-lang=&quot;sh&quot;&gt;b1ack0wl@b1ack0wl-VM ~/DVRF/_DVRF_v01.bin.extracted/squashfs-root &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo chroot . ./qemu-mipsel-static  ./pwnable/Intro/stack_bof_01 &lt;span class=&quot;s2&quot;&gt;&amp;quot;[REDACTED]&amp;quot;&lt;/span&gt;
+Welcome to the first BoF exercise!
+
+You entered &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;REDACTED&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+Try Again
+Congrats! I will now execute /bin/sh
+- b1ack0wl
+qemu: uncaught target signal &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;Segmentation fault&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; - core dumped&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can see the &lt;strong&gt;Segmentation Fault&lt;/strong&gt; this is due to a pointer within the stack being corrupted during the overflow. Your goal is to make this program not segfault so use the tools I provided and make sure to use breakpoints! To get you started here is a proof of concept:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://b1ack0wl.com/assets/img/dvrf-PoC.jpg&quot; alt=&quot;PoC&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I hope this has helped you get started into your journey into embedded device exploitation. If you have any questions feel free to find me on twitter at &lt;a href=&quot;https://twitter.com/b1ack0wl&quot;&gt;@b1ack0wl&lt;/a&gt;&lt;/p&gt;
+
+&lt;center&gt;
+&lt;b&gt;**DVRF v0.1 has been released on &lt;a href=&quot;https://github.com/praetorian-inc/DVRF&quot;&gt;GitHub!!&lt;/a&gt;** &lt;/b&gt; &lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+  
+  &lt;p&gt;&lt;a href=&quot;http://b1ack0wl.com/projects/2016/01/20/Getting-Started-With-DVRF/&quot;&gt;Getting Started with DVRF&lt;/a&gt; was originally published by b1ack0wl at &lt;a href=&quot;http://b1ack0wl.com&quot;&gt;b1ack0wl&lt;/a&gt; on January 20, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
