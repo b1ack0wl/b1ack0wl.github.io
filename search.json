@@ -1,14 +1,6 @@
 [
 	
 		{
-		  "title"      : "Getting Started with DVRF",
-		  "category"   : "Projects",
-		  "url"        : "http://b1ack0wl.com/projects/2016/01/20/Getting-Started-With-DVRF/",
-		  "date"       : "2016-01-20 22:32:00 +0530",
-		  "shortdate"  : "January 20, 2016"
-		} ,
-	
-		{
 		  "title"      : "Damn Vulnerable Router Firmware",
 		  "category"   : "Projects",
 		  "url"        : "http://b1ack0wl.com/projects/2015/12/25/Damn-Vulnerable-Router-Firmware/",

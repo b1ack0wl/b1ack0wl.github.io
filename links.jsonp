@@ -3,11 +3,6 @@ callback([
   {
     "text": "Damn Vulnerable Router Firmware",
     "href": "http://b1ack0wl.com/projects/2015/12/25/Damn-Vulnerable-Router-Firmware/"
-  } ,
-
-  {
-    "text": "Getting Started with DVRF",
-    "href": "http://b1ack0wl.com/projects/2016/01/20/Getting-Started-With-DVRF/"
   } 
 
 ])
